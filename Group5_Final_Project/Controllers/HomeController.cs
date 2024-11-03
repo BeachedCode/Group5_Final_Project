@@ -18,7 +18,7 @@ namespace Group5_Final_Project.Controllers
             return View();
         }
 
-        public IActionResult Games()
+        public IActionResult Privacy()
         {
             return View();
         }
