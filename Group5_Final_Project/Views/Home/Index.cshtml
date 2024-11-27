@@ -1,8 +1,46 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<Group5_Final_Project.Models.Game>
+
+@{
+    ViewBag.Title = "Game List";
 }
 
-<div class="text-center">
-<h1>This is our Web Server Application Development Final Project!</h1>
-<h2>This application tracks video games, their genres, and their developers.</h2>
-</div>
+<h2>Game List</h2>
+<a asp-controller="Game" asp-action="Add" class="btn btn-primary">Add New Game</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Genre</th>
+            <th>Developer</th>
+            <th>Release Date</th>
+            <th>Rating</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="6" class="text-center">No games found.</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var game in Model)
+            {
+                <tr>
+                    <td>@game.Name</td>
+                    <td>@(game.Genre != null ? game.Genre.Genre : "N/A")</td>
+                    <td>@(game.Developer != null ? game.Developer.Name : "Unknown")</td>
+                    <td>@(game.ReleaseDate?.ToShortDateString() ?? "N/A")</td>
+                    <td>@(game.Rating != null ? game.Rating.ToString() : "N/A")</td>
+                    <td>
+                        <a asp-controller="Game" asp-action="Edit" asp-route-id="@game.Id" class="btn btn-warning">Edit</a>
+                        <a asp-controller="Game" asp-action="Delete" asp-route-id="@game.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
