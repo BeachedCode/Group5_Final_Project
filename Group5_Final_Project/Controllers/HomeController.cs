@@ -17,8 +17,12 @@ namespace Group5_Final_Project.Controllers
         {
             return View();
         }
+        public IActionResult Members()
+        {
+            return View();
+        }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }
