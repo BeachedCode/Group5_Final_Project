@@ -3,7 +3,7 @@
     public class Developer
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Job { get; set; } //Ex: Artist, Programmer, etc
+        public string? Name { get; set; }
+        public string? Location {get; set;}
     }
 }
