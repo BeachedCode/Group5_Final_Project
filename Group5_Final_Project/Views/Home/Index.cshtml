@@ -36,8 +36,8 @@
                     <td>@(game.ReleaseDate?.ToShortDateString() ?? "N/A")</td>
                     <td>@(game.Rating != null ? game.Rating.ToString() : "N/A")</td>
                     <td>
-                        <a asp-controller="Game" asp-action="Edit" asp-route-id="@game.Id" class="btn btn-warning">Edit</a>
-                        <a asp-controller="Game" asp-action="Delete" asp-route-id="@game.Id" class="btn btn-danger">Delete</a>
+                        <a asp-controller="Game" asp-action="Edit" asp-route-id="@game.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Game" asp-action="Delete" asp-route-id="@game.Id" class="btn btn-primary">Delete</a>
                     </td>
                 </tr>
             }
