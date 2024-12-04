@@ -1,0 +1,41 @@
+﻿@model List<Group5_Final_Project.Models.Platform>
+
+@{
+    ViewBag.Title = "Platform List";
+}
+
+<h2>Platform List</h2>
+<a asp-controller="Platform" asp-action="Add" class="btn btn-primary">Add New Platform</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+
+            <th>Platform</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="6" class="text-center">No Platforms found.</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var platform in Model)
+            {
+                <tr>
+
+                    <td>@(platform.Name)</td>
+
+                    <td>
+                        <a asp-controller="Platform" asp-action="Edit" asp-route-id="@platform.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Platform" asp-action="Delete" asp-route-id="@platform.Id" class="btn btn-primary">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

@@ -12,6 +12,13 @@ namespace Group5_Final_Project.Controllers
             _context = context;
         }
 
+        [Route("Games")]
+        public IActionResult Games()
+        {
+            var games = _context.Games.OrderBy(g => g.Name).ToList();
+            return View( games);
+        }
+
         [HttpGet]
         public IActionResult Add()
         {

@@ -1,0 +1,40 @@
+﻿@model List<Group5_Final_Project.Models.Developer>
+
+@{
+    ViewBag.Title = "Developer List";
+}
+
+<h2>Developer List</h2>
+<a asp-controller="Developer" asp-action="Add" class="btn btn-primary">Add New Developer</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Developer</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="6" class="text-center">No Developers found.</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var developer in Model)
+            {
+                <tr>
+                    <td>@(developer.Name)</td>
+                    <td>@(developer.Location)</td>
+
+                    <td>
+                        <a asp-controller="Developer" asp-action="Edit" asp-route-id="@developer.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Developer" asp-action="Delete" asp-route-id="@developer.Id" class="btn btn-primary">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
