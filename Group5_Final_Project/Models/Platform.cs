@@ -1,8 +1,8 @@
 ﻿namespace Group5_Final_Project.Models
 {
-    public class GameGenre
+    public class Platform
     {
         public int Id { get; set; }
-        public string? Genre { get; set; }
+        public string? Name { get; set; }
     }
 }
