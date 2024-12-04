@@ -1,125 +1,81 @@
 ﻿using Group5_Final_Project.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Group5_Final_Project.Controllers
 {
     public class GameController : Controller
     {
-        private readonly GamesContext _context;
+        private GamesContext _context { get; set; }
 
         public GameController(GamesContext context)
         {
             _context = context;
         }
 
-        // GET: Game/Index
-        public IActionResult Index()
-        {
-            var games = _context.Games
-                                 .Include(g => g.Genre)
-                                 .Include(g => g.Developer)
-                                 .ToList();
-
-            // Log information for debugging
-            if (games == null || !games.Any())
-            {
-                Console.WriteLine("No games found or the list is null.");
-            }
-            else
-            {
-                foreach (var game in games)
-                {
-                    if (game.Genre == null)
-                        Console.WriteLine($"Game ID {game.Id} has a null Genre");
-                    if (game.Developer == null)
-                        Console.WriteLine($"Game ID {game.Id} has a null Developer");
-                }
-            }
-
-            return View(games);
-        }
-
-        // GET: Game/Add
+        [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.Genres = _context.Genres.ToList();
-            ViewBag.Developers = _context.Developers.ToList();
-            return View();
+            ViewBag.Action = "Add";
+            ViewBag.Genres = _context.Genres.OrderBy(g => g.Genre).ToList();
+            ViewBag.Platforms = _context.Platforms.OrderBy(p => p.Name).ToList();
+            ViewBag.Developers = _context.Developers.OrderBy(d => d.Name).ToList();
+            return View("Edit", new Game());
         }
 
-        // POST: Game/Add
-        [HttpPost]
-        public IActionResult Add(Game game)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Games.Add(game);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Genres = _context.Genres.ToList();
-            ViewBag.Developers = _context.Developers.ToList();
-            return View(game);
-        }
-
-        // GET: Game/Edit/{id}
+        [HttpGet]
         public IActionResult Edit(int id)
         {
-            var game = _context.Games
-                                .Include(g => g.Genre)
-                                .Include(g => g.Developer)
-                                .FirstOrDefault(g => g.Id == id);
-            if (game == null)
-            {
-                return NotFound();
-            }
-            ViewBag.Genres = _context.Genres.ToList();
-            ViewBag.Developers = _context.Developers.ToList();
+            ViewBag.Action = "Edit";
+            ViewBag.Genres = _context.Genres.OrderBy(g => g.Genre).ToList();
+            ViewBag.Platforms = _context.Platforms.OrderBy(p => p.Name).ToList();
+            ViewBag.Developers = _context.Developers.OrderBy(d => d.Name).ToList();
+            var game = _context.Games.Find(id);
             return View(game);
         }
 
-        // POST: Game/Edit/{id}
         [HttpPost]
         public IActionResult Edit(Game game)
         {
             if (ModelState.IsValid)
             {
-                _context.Games.Update(game);
+                if (game.Id == 0)
+                {
+                    _context.Games.Add(game);
+                }
+                else
+                {
+                    _context.Games.Update(game);
+                }
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
+
             }
-            ViewBag.Genres = _context.Genres.ToList();
-            ViewBag.Developers = _context.Developers.ToList();
-            return View(game);
+            else
+            {
+                ViewBag.Action = (game.Id == 0) ? "Add" : "Edit";
+                ViewBag.Genres = _context.Genres.OrderBy(g => g.Genre).ToList();
+                ViewBag.Platforms = _context.Platforms.OrderBy(p => p.Name).ToList();
+                ViewBag.Developers = _context.Developers.OrderBy(d => d.Name).ToList();
+                return View(game);
+            }
         }
 
-        // GET: Game/Delete/{id}
+
+
+        [HttpGet]
         public IActionResult Delete(int id)
         {
-            var game = _context.Games
-                                .Include(g => g.Genre)
-                                .Include(g => g.Developer)
-                                .FirstOrDefault(g => g.Id == id);
-            if (game == null)
-            {
-                return NotFound();
-            }
+            var game = _context.Games.Find(id);
             return View(game);
         }
 
-        // POST: Game/Delete/{id}
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public IActionResult Delete(Game game)
         {
-            var game = _context.Games.Find(id);
-            if (game != null)
-            {
-                _context.Games.Remove(game);
-                _context.SaveChanges();
-            }
-            return RedirectToAction("Index");
+            _context.Games.Remove(game);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
+
     }
 }
