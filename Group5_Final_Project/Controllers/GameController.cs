@@ -9,7 +9,14 @@ namespace Group5_Final_Project.Controllers
 
         public GameController(GamesContext context)
         {
-               _context = context;
+            _context = context;
+        }
+
+        [Route("Games")]
+        public IActionResult Games()
+        {
+            var games = _context.Games.OrderBy(g => g.Name).ToList();
+            return View( games);
         }
 
         [HttpGet]
@@ -47,7 +54,7 @@ namespace Group5_Final_Project.Controllers
                     _context.Games.Update(game);
                 }
                 _context.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Games", "Home");
 
             }
             else
@@ -74,7 +81,7 @@ namespace Group5_Final_Project.Controllers
         {
             _context.Games.Remove(game);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Games", "Home");
         }
 
     }

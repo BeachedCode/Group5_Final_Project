@@ -1,0 +1,68 @@
+﻿@model Group5_Final_Project.Models.Game
+@{
+
+    string title = ViewBag.Action + "Game";
+    ViewBag.Title = title;
+
+}
+
+<h2>@ViewBag.title</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <lable asp-for="Name">Name</lable>
+        <input asp-for="Name" class="form-control">
+
+    </div>
+
+    <div class="form-group">
+        <lable asp-for="GenreId">Genre</lable>
+        <select asp-for="GenreId" class="form-control">
+            <option value="">select a genre</option>
+            @foreach (Group5_Final_Project.Models.GameGenre g in ViewBag.Genres)
+            {
+                <option value="@g.Id">
+                    @g.Genre
+                </option>
+            }
+        </select>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DeveloperId">Developer</label>
+        <select asp-for="DeveloperId" class="form-control">
+            <option value="">select a developer</option>
+            @foreach (Group5_Final_Project.Models.Developer d in ViewBag.Developers)
+            {
+                <option value="@d.Id">
+                    @d.Name
+                </option>
+            }
+
+        </select>
+
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ReleaseDate">Release Date</label>
+        <input asp-for="ReleaseDate" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Rating">Rating</label>
+        <input asp-for="Rating" class="form-control" />
+    </div>
+
+
+
+    <input type="hidden" asp-for="Id" />
+
+
+    <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
+    <a asp-controller="Home" asp-action="Games"
+       class="btn btn-primary">Cancel</a>
+
+</form>

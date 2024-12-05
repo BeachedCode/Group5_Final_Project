@@ -1,0 +1,40 @@
+﻿@model List<Group5_Final_Project.Models.GameGenre>
+
+@{
+    ViewBag.Title = "Genre List";
+}
+
+<h2>Genre List</h2>
+<a asp-controller="Genre" asp-action="Add" class="btn btn-primary">Add New Genre</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+
+            <th>Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model == null || !Model.Any())
+        {
+            <tr>
+                <td colspan="6" class="text-center">No Genres found.</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var genre in Model)
+            {
+                <tr>
+                    
+                    <td>@(genre.Genre )</td>
+
+                    <td>
+                        <a asp-controller="Genre" asp-action="Edit" asp-route-id="@genre.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Genre" asp-action="Delete" asp-route-id="@genre.Id" class="btn btn-primary">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
