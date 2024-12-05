@@ -18,12 +18,12 @@
     </div>
 
     <div class="form-group">
-        <lable asp-for="Genre">Genre</lable>
-        <select asp-for="Genre" class="form-control">
+        <lable asp-for="GenreId">Genre</lable>
+        <select asp-for="GenreId" class="form-control">
             <option value="">select a genre</option>
             @foreach (Group5_Final_Project.Models.GameGenre g in ViewBag.Genres)
             {
-                <option value="@g.Genre">
+                <option value="@g.Id">
                     @g.Genre
                 </option>
             }
@@ -32,12 +32,12 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Developer">Developer</label>
-        <select asp-for="Developer" class="form-control">
+        <label asp-for="DeveloperId">Developer</label>
+        <select asp-for="DeveloperId" class="form-control">
             <option value="">select a developer</option>
             @foreach (Group5_Final_Project.Models.Developer d in ViewBag.Developers)
             {
-                <option value="@d.Name">
+                <option value="@d.Id">
                     @d.Name
                 </option>
             }
