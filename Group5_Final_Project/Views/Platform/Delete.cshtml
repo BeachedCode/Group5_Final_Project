@@ -1,0 +1,15 @@
+﻿@model Platform
+
+@{
+    ViewBag.Title = "Delete Platform";
+}
+
+<h2>Confirm Deletion</h2>
+<h3>@Model.Name</h3>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-primary">Delete</button>
+
+    <a asp-controller="Home" asp-action="Platforms" class="btn btn-primary">Cancel</a>
+</form>
