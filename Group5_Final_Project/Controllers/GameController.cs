@@ -54,7 +54,7 @@ namespace Group5_Final_Project.Controllers
                     _context.Games.Update(game);
                 }
                 _context.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Games", "Home");
 
             }
             else
@@ -81,7 +81,7 @@ namespace Group5_Final_Project.Controllers
         {
             _context.Games.Remove(game);
             _context.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Games", "Home");
         }
 
     }
