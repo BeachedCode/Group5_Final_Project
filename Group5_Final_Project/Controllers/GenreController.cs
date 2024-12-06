@@ -35,22 +35,22 @@ namespace Group5_Final_Project.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(GameGenre genre) { 
+        public IActionResult Edit(GameGenre genreObject) { 
             if (ModelState.IsValid)
             {
-                if (genre.Id == 0)
+                if (genreObject.Id == 0)
                 {
-                    _context.Genres.Add(genre);
+                    _context.Genres.Add(genreObject);
                 } else
                 {
-                    _context.Genres.Update(genre);
+                    _context.Genres.Update(genreObject);
                 }
                 _context.SaveChanges();
                 return RedirectToAction("Genres");
             } else
             {
-                ViewBag.Action = (genre.Id == 0) ? "Add" : "Edit";
-                return View(genre);
+                ViewBag.Action = (genreObject.Id == 0) ? "Add" : "Edit";
+                return View(genreObject);
             }
         }
 
